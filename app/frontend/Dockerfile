@@ -1,5 +1,6 @@
 FROM node:16.14-alpine
 WORKDIR /app-frontend
-COPY . /
-ENTRYPOINT [ "npm",  "install" ]
-EXPOSE 3000
+COPY package.json ./
+RUN npm install
+COPY . ./
+CMD [ "npm", "start" ]

@@ -1,6 +1,5 @@
 import { Model, STRING, INTEGER } from 'sequelize';
 import db from '.';
-// import OtherModel from './OtherModel';
 
 class Users extends Model {
   declare id: number;

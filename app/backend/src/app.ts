@@ -1,12 +1,12 @@
 import * as express from 'express';
-import { loginRouter } from './routers/loginRouter'
+import loginRouter from './routers/loginRouter';
 
 class App {
   public app: express.Express;
 
   constructor() {
     this.app = express();
-    this.routes()
+    this.routes();
     this.config();
 
     // Não remover essa rota

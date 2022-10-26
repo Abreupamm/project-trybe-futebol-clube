@@ -1,15 +1,18 @@
-// import { compare } from 'bcryptjs';
+import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
+import { ILogin } from '../interfaces/ILogin';
 import Users from '../database/models/UserModel';
-import { IUser } from '../interfaces/userInterface';
+import { IUser } from '../interfaces/IUser';
 
 const jwtSecretKey = process.env.JWT_SECRET;
 
 export default class LoginService {
-  async connect(user: IUser): Promise<object> {
+  // constructor(readonly model = new UsersModel(connection)) {}
+
+  async connect(user: ILogin): Promise<object> {
     const isUser = await Users.findOne({
       attributes: ['id', 'role', 'email', 'password'],
-      where: { email: user.email, password: user.password },
+      where: { email: user.email },
     });
 
     if (!isUser) {
@@ -18,11 +21,14 @@ export default class LoginService {
     return { status: 200, token: this.generateToken(user, isUser) };
   }
 
-  private generateToken = async (user: IUser, isUser: IUser) => {
+  private generateToken = async (user: ILogin, isUser: IUser) => {
     const payload = { id: isUser.id, email: isUser.email, role: isUser.role };
-    // const validPassword = await compare(user.password, isUser.password);
+    const validPassword = await compare(user.password, isUser.password);
 
-    const token = sign(payload, jwtSecretKey as string);
-    return token;
+    if (validPassword) {
+      const token = sign(payload, jwtSecretKey as string);
+      return token;
+    }
+    return 'Incorrect email or password';
   };
 }

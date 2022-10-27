@@ -2,7 +2,7 @@ import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { ILogin } from '../interfaces/ILogin';
 import Users from '../database/models/UserModel';
-import { IUser } from '../interfaces/IUser';
+import { IRole, IUser } from '../interfaces/IUser';
 import NotauthorizedError from '../errors/NotauthorizedError';
 
 const jwtSecretKey = process.env.JWT_SECRET;
@@ -19,7 +19,7 @@ export default class LoginService {
   }
 
   private generateToken = async (user: ILogin, isUser: IUser) => {
-    const payload = { id: isUser.id, email: isUser.email, role: isUser.role };
+    const payload = { id: isUser.id, email: isUser.email };
     const validPassword = await compare(user.password, isUser.password);
 
     if (validPassword) {
@@ -27,5 +27,19 @@ export default class LoginService {
       return token;
     }
     throw new NotauthorizedError('Incorrect email or password');
+  };
+
+  validateToken = async (
+    userLogin: IUser,
+    token: string | void,
+  ): Promise<IRole> => {
+    if (!token || token.length < 16) {
+      throw new NotauthorizedError('Invalid token');
+    }
+    const user = await Users.findOne({ where: { email: userLogin.email } });
+    if (user) {
+      return { role: user?.role };
+    }
+    return { role: '' };
   };
 }

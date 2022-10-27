@@ -3,12 +3,11 @@ import { sign } from 'jsonwebtoken';
 import { ILogin } from '../interfaces/ILogin';
 import Users from '../database/models/UserModel';
 import { IUser } from '../interfaces/IUser';
+import NotauthorizedError from '../errors/NotauthorizedError';
 
 const jwtSecretKey = process.env.JWT_SECRET;
 
 export default class LoginService {
-  // constructor(readonly model = new UsersModel(connection)) {}
-
   async connect(user: ILogin): Promise<string> {
     const isUser = await Users.findOne({ where: { email: user.email } });
 
@@ -16,7 +15,7 @@ export default class LoginService {
       const token = this.generateToken(user, isUser);
       return token;
     }
-    return 'erro';
+    throw new NotauthorizedError('Incorrect email or password');
   }
 
   private generateToken = async (user: ILogin, isUser: IUser) => {

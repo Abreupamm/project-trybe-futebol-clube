@@ -9,8 +9,6 @@ export default class LoginController {
   }
 
   async toConnect(req: Request, res: Response): Promise<object> {
-    console.log(req.body);
-
     const newLogin = await this.loginService.connect(req.body);
     return res.status(200).json({ token: newLogin });
   }

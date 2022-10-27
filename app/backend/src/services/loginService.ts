@@ -12,11 +12,11 @@ export default class LoginService {
   async connect(user: ILogin): Promise<string> {
     const isUser = await Users.findOne({ where: { email: user.email } });
 
-    if (!isUser) {
-      return 'erro';
+    if (isUser) {
+      const token = this.generateToken(user, isUser);
+      return token;
     }
-    const token = this.generateToken(user, isUser);
-    return token;
+    return 'erro';
   }
 
   private generateToken = async (user: ILogin, isUser: IUser) => {

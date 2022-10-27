@@ -26,6 +26,6 @@ export default class LoginService {
       const token = sign(payload, jwtSecretKey as string);
       return token;
     }
-    return 'Incorrect email or password';
+    throw new NotauthorizedError('Incorrect email or password');
   };
 }

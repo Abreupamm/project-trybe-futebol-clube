@@ -19,7 +19,7 @@ describe('Verifica  o endpoint /login no back-end de maneira que ele permita o a
       username: 'Maria',
       role: 'admin',
       email: 'maria@email.com',
-      password: '123456',
+      password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW',
     };
     before(() =>
       sinon.stub(Users, 'findOne').resolves(userAdminToken as Users)
@@ -30,7 +30,7 @@ describe('Verifica  o endpoint /login no back-end de maneira que ele permita o a
       const httpResponse = await chai
         .request(app)
         .post('/login')
-        .send({ email: 'maria@email.com', password: '123456' });
+        .send({ email: 'maria@email.com', password: 'secret_admin' });
       expect(httpResponse.status).to.equal(200);
     });
   });

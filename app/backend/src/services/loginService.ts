@@ -9,16 +9,14 @@ const jwtSecretKey = process.env.JWT_SECRET;
 export default class LoginService {
   // constructor(readonly model = new UsersModel(connection)) {}
 
-  async connect(user: ILogin): Promise<object> {
-    const isUser = await Users.findOne({
-      attributes: ['id', 'role', 'email', 'password'],
-      where: { email: user.email },
-    });
+  async connect(user: ILogin): Promise<string> {
+    const isUser = await Users.findOne({ where: { email: user.email } });
 
     if (!isUser) {
-      return { status: 404, messagem: 'Incorrect email or password' };
+      return 'erro';
     }
-    return { status: 200, token: this.generateToken(user, isUser) };
+    const token = this.generateToken(user, isUser);
+    return token;
   }
 
   private generateToken = async (user: ILogin, isUser: IUser) => {

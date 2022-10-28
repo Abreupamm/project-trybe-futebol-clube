@@ -1,4 +1,4 @@
-import { compare } from 'bcryptjs';
+import { compareSync } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { ILogin } from '../interfaces/ILogin';
 import Users from '../database/models/UserModel';
@@ -15,7 +15,7 @@ export default class LoginService {
       throw new NotauthorizedError('Incorrect email or password');
     }
 
-    const validPassword = await compare(user.password, isUser.password);
+    const validPassword = compareSync(user.password, isUser.password);
     if (!validPassword) {
       throw new NotauthorizedError('Incorrect email or password');
     }

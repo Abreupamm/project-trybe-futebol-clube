@@ -32,7 +32,7 @@ Matches.init(
       allowNull: false,
     },
     awayTeamGoals: {
-      type: STRING,
+      type: INTEGER,
       allowNull: false,
     },
     inProgress: {

@@ -7,7 +7,7 @@ import NotauthorizedError from '../errors/NotauthorizedError';
 
 const jwtSecretKey = process.env.JWT_SECRET;
 
-export default class LoginService {
+export default class UserService {
   async connect(user: ILogin): Promise<string> {
     const isUser = await Users.findOne({ where: { email: user.email } });
 

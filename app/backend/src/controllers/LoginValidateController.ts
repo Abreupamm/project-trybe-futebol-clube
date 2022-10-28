@@ -1,10 +1,10 @@
 import { Request, Response } from 'express';
-import { ILoginService } from '../interfaces/services/ILoginService';
+import { IUserService } from '../interfaces/services/IUserService';
 
 export default class LoginValidateController {
-  private readonly loginService: ILoginService;
+  private readonly loginService: IUserService;
 
-  constructor(loginService: ILoginService) {
+  constructor(loginService: IUserService) {
     this.loginService = loginService;
   }
 

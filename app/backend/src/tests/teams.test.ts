@@ -27,12 +27,11 @@ describe('Verifica  o endpoint /teams no back-end de maneira que ele permita o a
         "teamName": "Botafogo"
       },
     ];
-
+    
     const teamById = {
       "id": 1,
       "teamName": "Avaí/Kindermann"
     }
-
     before(() =>
       sinon.stub(Teams, 'findAll').resolves(teams as Teams[])
     );

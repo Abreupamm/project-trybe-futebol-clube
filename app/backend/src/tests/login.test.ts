@@ -32,9 +32,7 @@ describe('Verifica  o endpoint /login no back-end de maneira que ele permita o a
         .send({ email: 'maria@email.com', password: 'secret_admin' });
       expect(httpResponse.status).to.equal(200);
     });
-  });
-
-  describe('Quando a requisução não é feita com sucesso', () => {
+   
     it('Verifica que não é possível fazer login sem informar o email', async () => {
       const httpResponse = await chai
         .request(app)
@@ -50,7 +48,7 @@ describe('Verifica  o endpoint /login no back-end de maneira que ele permita o a
       const httpResponse = await chai
         .request(app)
         .post('/login')
-        .send({ email: 'admin@admin.com', password: '' });
+        .send({ email: 'maria@email.com', password: '' });
       expect(httpResponse.status).to.equal(400);
       expect(httpResponse.body).to.deep.equal({
         message: 'All fields must be filled',
@@ -72,7 +70,7 @@ describe('Verifica  o endpoint /login no back-end de maneira que ele permita o a
       const httpResponse = await chai
         .request(app)
         .post('/login')
-        .send({ email: 'admin@admin.com', password: '12345' });
+        .send({ email: 'maria@email.com', password: '123' });
       expect(httpResponse.status).to.equal(401);
       expect(httpResponse.body).to.deep.equal({
         message: 'Incorrect email or password',

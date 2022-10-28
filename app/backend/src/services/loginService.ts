@@ -11,22 +11,24 @@ export default class LoginService {
   async connect(user: ILogin): Promise<string> {
     const isUser = await Users.findOne({ where: { email: user.email } });
 
-    if (isUser) {
-      const token = this.generateToken(user, isUser);
-      return token;
+    if (!isUser) {
+      throw new NotauthorizedError('Incorrect email or password');
     }
-    throw new NotauthorizedError('Incorrect email or password');
+
+    const validPassword = await compare(user.password, isUser.password);
+    if (!validPassword) {
+      throw new NotauthorizedError('Incorrect email or password');
+    }
+
+    const token = this.generateToken(user, isUser);
+    return token;
   }
 
   private generateToken = async (user: ILogin, isUser: IUser) => {
     const payload = { id: isUser.id, email: isUser.email };
-    const validPassword = await compare(user.password, isUser.password);
 
-    if (validPassword) {
-      const token = sign(payload, jwtSecretKey as string);
-      return token;
-    }
-    throw new NotauthorizedError('Incorrect email or password');
+    const token = sign(payload, jwtSecretKey as string);
+    return token;
   };
 
   validateToken = async (

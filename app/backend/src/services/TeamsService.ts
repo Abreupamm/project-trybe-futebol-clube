@@ -1,6 +1,6 @@
 import { ITeams } from '../interfaces/ITeams';
 import Teams from '../database/models/TeamsModel';
-import NotauthorizedError from '../errors/NotauthorizedError';
+import NotauthorizedError from '../errors/UnauthorizedError';
 
 export default class TeamsService {
   getTeams = async (): Promise<ITeams[]> => {

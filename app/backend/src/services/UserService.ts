@@ -3,7 +3,7 @@ import { sign } from 'jsonwebtoken';
 import { ILogin } from '../interfaces/ILogin';
 import Users from '../database/models/UserModel';
 import { IRole, IUser } from '../interfaces/IUser';
-import NotauthorizedError from '../errors/NotauthorizedError';
+import UnauthorizedError from '../errors/UnauthorizedError';
 
 const jwtSecretKey = process.env.JWT_SECRET;
 
@@ -12,12 +12,12 @@ export default class UserService {
     const isUser = await Users.findOne({ where: { email: user.email } });
 
     if (!isUser) {
-      throw new NotauthorizedError('Incorrect email or password');
+      throw new UnauthorizedError('Incorrect email or password');
     }
 
     const validPassword = compareSync(user.password, isUser.password);
     if (!validPassword) {
-      throw new NotauthorizedError('Incorrect email or password');
+      throw new UnauthorizedError('Incorrect email or password');
     }
 
     const token = this.generateToken(user, isUser);
@@ -36,7 +36,7 @@ export default class UserService {
     token: string | void,
   ): Promise<IRole> => {
     if (!token || token.length < 16) {
-      throw new NotauthorizedError('Invalid token');
+      throw new UnauthorizedError('Invalid token');
     }
     const user = await Users.findOne({ where: { email: userLogin.email } });
     if (user) {

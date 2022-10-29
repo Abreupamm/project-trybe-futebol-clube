@@ -1,4 +1,4 @@
-export default class NotauthorizedError extends Error {
+export default class UnauthorizedError extends Error {
   status: number;
 
   constructor(message: string) {

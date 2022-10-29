@@ -23,6 +23,7 @@ describe('Verifica  o endpoint /login no back-end de maneira que ele permita o a
     before(() =>
       sinon.stub(Users, 'findOne').resolves(userAdminToken as Users)
     );
+    
     after(() => sinon.restore);
 
     it('Verifica se é possível fazer login', async () => {

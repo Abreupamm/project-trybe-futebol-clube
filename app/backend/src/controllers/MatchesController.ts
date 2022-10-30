@@ -12,10 +12,11 @@ export default class MatchesController {
     const { inProgress } = req.query;
     console.log(req.query);
     let matchesAll;
-    if (inProgress) {
-      matchesAll = await this.matchesService.getMatchesIsProgress();
-    } else {
+    if (!inProgress) {
       matchesAll = await this.matchesService.getMatches();
+    } else {
+      const progress = Boolean(inProgress === 'true');
+      matchesAll = await this.matchesService.getMatchesIsProgress(progress);
     }
     return res.status(200).json(matchesAll);
   }

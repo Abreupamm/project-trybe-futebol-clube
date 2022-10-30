@@ -13,4 +13,15 @@ export default class MatchesService {
 
     return matchesAll;
   };
+
+  getMatchesIsProgress = async (): Promise<IMatches[]> => {
+    const matches = await Matches.findAll({
+      where: { inProgress: true },
+      include: [
+        { model: Teams, as: 'teamHome', attributes: ['teamName'] },
+        { model: Teams, as: 'teamAway', attributes: ['teamName'] },
+      ],
+    });
+    return matches;
+  };
 }

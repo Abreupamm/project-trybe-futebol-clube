@@ -7,19 +7,15 @@ import { app } from '../app';
 
 import Users from '../database/models/UserModel';
 
+import { userAdminToken } from './moks'
+
 chai.use(chaiHttp);
 
 const { expect } = chai;
 
 describe('Verifica  o endpoint /login no back-end de maneira que ele permita o acesso com dados válidos no front-end', () => {
   describe('Quando a requisução é feita com sucesso', () => {
-    const userAdminToken = {
-      id: 1,
-      username: 'Maria',
-      role: 'admin',
-      email: 'maria@email.com',
-      password: '$2a$08$xi.Hxk1czAO0nZR..B393u10aED0RQ1N3PAEXQ7HxtLjKPEZBu.PW',
-    };
+   
     before(() =>
       sinon.stub(Users, 'findOne').resolves(userAdminToken as Users)
     );

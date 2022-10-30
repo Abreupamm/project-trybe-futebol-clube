@@ -20,11 +20,11 @@ module.exports = {
         allowNull: false,
       },
       away_team_goals: {
-        type: Sequelize.STRING,
+        type: Sequelize.INTEGER,
         allowNull: false,
       },
       in_progress: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.BOOLEAN,
         allowNull: false,
       }
     });

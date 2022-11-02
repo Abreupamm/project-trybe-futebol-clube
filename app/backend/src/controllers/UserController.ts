@@ -9,11 +9,11 @@ export default class UserController {
   }
 
   async toConnect(req: Request, res: Response) {
-    // try {
-    const newLogin = await this.loginService.connect(req.body);
-    return res.status(200).json({ token: newLogin });
-    // } catch (err: any) {
-    //   return res.status(err.status).json({ message: err.message });
-    // }
+    try {
+      const newLogin = await this.loginService.connect(req.body);
+      return res.status(200).json({ token: newLogin });
+    } catch (err: any) {
+      return res.status(err.status).json({ message: err.message });
+    }
   }
 }

@@ -1,13 +1,14 @@
 import { Router } from 'express';
 import UserService from '../services/UserService';
 import UserController from '../controllers/UserController';
-import validEmailLogin from '../middlewares/validEmailLogin';
-import validPassword from '../middlewares/validPassword';
+// import validEmailLogin from '../middlewares/validEmailLogin';
+// import validPassword from '../middlewares/validPassword';
 import LoginValidateController from '../controllers/LoginValidateController';
 import TeamsController from '../controllers/TeamsController';
 import TeamsService from '../services/TeamsService';
 import MatchesService from '../services/MatchesService';
 import MatchesController from '../controllers/MatchesController';
+// import validTeamsName from '../middlewares/validTeamsName';
 // import authenticateToken from '../middlewares/validToken';
 
 const loginService = new UserService();
@@ -20,7 +21,7 @@ const matchesController = new MatchesController(matchesService);
 
 const router = Router();
 
-router.post('/login', validEmailLogin, validPassword, (req, res) =>
+router.post('/login', (req, res) =>
   loginController.toConnect(req, res));
 
 router.get('/login/validate', (req, res) =>

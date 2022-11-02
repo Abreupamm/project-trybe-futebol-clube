@@ -38,4 +38,9 @@ export default class MatchesService {
     });
     return matches;
   };
+
+  matcheFinish = async (id: number): Promise<object> => {
+    await Matches.update({ inProgress: false }, { where: { id } });
+    return { message: 'Finished' };
+  };
 }

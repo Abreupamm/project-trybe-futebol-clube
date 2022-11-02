@@ -8,7 +8,7 @@ import TeamsController from '../controllers/TeamsController';
 import TeamsService from '../services/TeamsService';
 import MatchesService from '../services/MatchesService';
 import MatchesController from '../controllers/MatchesController';
-import authenticateToken from '../middlewares/validToken';
+// import authenticateToken from '../middlewares/validToken';
 
 const loginService = new UserService();
 const loginController = new UserController(loginService);
@@ -32,7 +32,9 @@ router.get('/teams/:id', (req, res) => teamsController.getTeamsById(req, res));
 
 router.get('/matches', (req, res) => matchesController.getMatches(req, res));
 
-router.post('/matches', authenticateToken, (req, res) =>
+router.post('/matches', (req, res) =>
   matchesController.newMatche(req, res));
+
+router.patch('/matches/:id/finish', (req, res) => matchesController.matcheFinish(req, res));
 
 export default router;

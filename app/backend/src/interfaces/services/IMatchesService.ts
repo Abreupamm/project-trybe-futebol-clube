@@ -5,4 +5,5 @@ export interface IMatchesService {
   getMatchesIsProgress(progress: boolean): Promise<IMatches[]>
   newMatche(matches: INewMatches): Promise<IMatches>
   matcheFinish(id: number): Promise<object>
+  matchesUpdate(id: number, homeTeamGoals: number, awayTeamGoals: number): Promise<void>
 }

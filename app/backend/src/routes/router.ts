@@ -38,4 +38,6 @@ router.post('/matches', (req, res) =>
 
 router.patch('/matches/:id/finish', (req, res) => matchesController.matcheFinish(req, res));
 
+router.patch('/matches/:id', (req, res) => matchesController.matchesUpdate(req, res));
+
 export default router;

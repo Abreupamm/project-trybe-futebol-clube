@@ -1,19 +1,20 @@
 import { verify } from 'jsonwebtoken';
 import { RequestHandler } from 'express';
-import UnauthorizedError from '../errors/UnauthorizedError';
 
 const jwtSecretKey = process.env.JWT_SECRET;
 
 const authenticateToken: RequestHandler = (req, res, next) => {
   const { authorization } = req.headers;
 
-  if (!authorization) throw new UnauthorizedError('token inválido');
+  if (!authorization) {
+    return res.status(401).json({ message: 'Token must be a valid token' });
+  }
 
-  verify(authorization, jwtSecretKey as string);
+  const user = verify(authorization, jwtSecretKey as string);
 
-  // if (!user) {
-  //   return res.status(401).json({ message: 'token inválido' });
-  // }
+  if (!user) {
+    return res.status(401).json({ message: 'Token must be a valid token' });
+  }
 
   next();
 };

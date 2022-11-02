@@ -8,7 +8,9 @@ import Matches from '../database/models/MatchesModel';
 import { 
   newMatches,
   createMatches,
-  matchesAll,  
+  matchesAll,
+  matchesInProgressTrue,
+  matchesInProgressFalse,  
 } from './moks';
 
 
@@ -35,6 +37,24 @@ describe('Verifica  o endpoint /matches no back-end de maneira que ele permita o
       const httpResponse = await chai.request(app).get('/matches/41');
       expect(httpResponse.status).to.equal(200);
       expect(httpResponse.body).to.deep.equal(matchesAll[1]);
+    });
+
+    before(() => sinon.stub(Matches, 'findAll').resolves(matchesInProgressTrue as Matches[]));
+    after(() => sinon.restore);
+
+    it('Verifica se é possível listar as partidas em progresso', async () => {
+      const httpResponse = await chai.request(app).get('matches?inProgress=true');
+      expect(httpResponse.status).to.equal(200);
+      expect(httpResponse.body).to.deep.equal(matchesInProgressTrue);
+    });
+
+    before(() => sinon.stub(Matches, 'findAll').resolves(matchesInProgressFalse as Matches[]));
+    after(() => sinon.restore);
+
+    it('Verifica se é possível listar as partidas funalizadas', async () => {
+      const httpResponse = await chai.request(app).get('matches?inProgress=false');
+      expect(httpResponse.status).to.equal(200);
+      expect(httpResponse.body).to.deep.equal(matchesInProgressFalse);
     });
 
     before(() => sinon.stub(Matches, 'create').resolves());

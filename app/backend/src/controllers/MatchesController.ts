@@ -10,7 +10,6 @@ export default class MatchesController {
 
   async getMatches(req: Request, res: Response) {
     const { inProgress } = req.query;
-    console.log(req.query);
     let matchesAll;
     if (!inProgress) {
       matchesAll = await this.matchesService.getMatches();
@@ -19,5 +18,10 @@ export default class MatchesController {
       matchesAll = await this.matchesService.getMatchesIsProgress(progress);
     }
     return res.status(200).json(matchesAll);
+  }
+
+  async newMatche(req: Request, res: Response) {
+    const newMatche = await this.matchesService.newMatche(req.body);
+    return res.status(200).json(newMatche);
   }
 }

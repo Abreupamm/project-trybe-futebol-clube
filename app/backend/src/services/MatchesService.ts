@@ -1,4 +1,4 @@
-import { IMatches } from '../interfaces/IMatches';
+import { IMatches, INewMatches } from '../interfaces/IMatches';
 import Matches from '../database/models/MatchesModel';
 import Teams from '../database/models/TeamsModel';
 
@@ -12,6 +12,20 @@ export default class MatchesService {
     });
 
     return matchesAll;
+  };
+
+  newMatche = async (matches: INewMatches): Promise<IMatches> => {
+    const { homeTeam, awayTeam, homeTeamGoals, awayTeamGoals } = matches;
+
+    const newMatche = await Matches.create({
+      homeTeam,
+      awayTeam,
+      homeTeamGoals,
+      awayTeamGoals,
+      inProgress: true,
+    });
+
+    return newMatche;
   };
 
   getMatchesIsProgress = async (progress: boolean): Promise<IMatches[]> => {

@@ -22,7 +22,7 @@ export default class MatchesController {
 
   async newMatche(req: Request, res: Response) {
     const newMatche = await this.matchesService.newMatche(req.body);
-    return res.status(200).json(newMatche);
+    return res.status(201).json(newMatche);
   }
 
   async matcheFinish(req: Request, res: Response) {

@@ -36,7 +36,11 @@ export default class MatchesController {
     const { homeTeamGoals, awayTeamGoals } = req.body;
     const { id } = req.params;
     const idMatche = parseFloat(id);
-    await this.matchesService.matchesUpdate(idMatche, homeTeamGoals, awayTeamGoals);
+    await this.matchesService.matchesUpdate(
+      idMatche,
+      homeTeamGoals,
+      awayTeamGoals,
+    );
     return res.status(200).json({});
   }
 }

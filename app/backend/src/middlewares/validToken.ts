@@ -1,7 +1,12 @@
-import { verify } from 'jsonwebtoken';
+import { JwtPayload, Secret, verify } from 'jsonwebtoken';
 import { RequestHandler } from 'express';
 
 const jwtSecretKey = process.env.JWT_SECRET;
+
+const authenticate = (token: string): JwtPayload => {
+  const user = verify(token, jwtSecretKey as Secret);
+  return user as JwtPayload;
+};
 
 const authenticateToken: RequestHandler = (req, res, next) => {
   const { authorization } = req.headers;
@@ -10,12 +15,13 @@ const authenticateToken: RequestHandler = (req, res, next) => {
     return res.status(401).json({ message: 'Token must be a valid token' });
   }
 
-  const user = verify(authorization, jwtSecretKey as string);
+  const user = authenticate(authorization);
 
   if (!user) {
     return res.status(401).json({ message: 'Token must be a valid token' });
   }
 
+  req.headers.userId = user.id;
   next();
 };
 

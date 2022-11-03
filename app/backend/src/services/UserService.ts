@@ -2,7 +2,7 @@ import { compareSync } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import { ILogin } from '../interfaces/ILogin';
 import Users from '../database/models/UserModel';
-import { IRole, IUser } from '../interfaces/IUser';
+import { IUser, IRole } from '../interfaces/IUser';
 import UnauthorizedError from '../errors/UnauthorizedError';
 
 const jwtSecretKey = process.env.JWT_SECRET;
@@ -31,16 +31,16 @@ export default class UserService {
     return token;
   };
 
-  validateToken = async (
-    userLogin: IUser,
+  getRole = async (
+    id: number,
     token: string | void,
   ): Promise<IRole> => {
     if (!token || token.length < 16) {
       throw new UnauthorizedError('Invalid token');
     }
-    const user = await Users.findOne({ where: { email: userLogin.email } });
+    const user = await Users.findOne({ where: { id } });
     if (user) {
-      return { role: user?.role };
+      return { role: user.role };
     }
     return { role: '' };
   };

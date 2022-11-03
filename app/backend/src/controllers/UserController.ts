@@ -16,4 +16,13 @@ export default class UserController {
       return res.status(err.status).json({ message: err.message });
     }
   }
+
+  async validation(req: Request, res: Response): Promise<object> {
+    const { authorization, userId } = req.headers;
+
+    const id = parseFloat(userId as string);
+
+    const user = await this.loginService.getRole(id, authorization);
+    return res.status(200).json(user);
+  }
 }

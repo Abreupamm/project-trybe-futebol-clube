@@ -7,7 +7,7 @@ import TeamsController from '../controllers/TeamsController';
 import TeamsService from '../services/TeamsService';
 import MatchesService from '../services/MatchesService';
 import MatchesController from '../controllers/MatchesController';
-// import validTeamsName from '../middlewares/validTeamsName';
+import { validTeamsName, validTeamDatabase } from '../middlewares/validTeams';
 import authenticateToken from '../middlewares/validToken';
 
 const loginService = new UserService();
@@ -31,7 +31,7 @@ router.get('/teams/:id', (req, res) => teamsController.getTeamsById(req, res));
 
 router.get('/matches', (req, res) => matchesController.getMatches(req, res));
 
-router.post('/matches', (req, res) =>
+router.post('/matches', validTeamsName, validTeamDatabase, (req, res) =>
   matchesController.newMatche(req, res));
 
 router.patch('/matches/:id/finish', (req, res) => matchesController.matcheFinish(req, res));

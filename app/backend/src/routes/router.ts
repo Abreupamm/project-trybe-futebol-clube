@@ -1,8 +1,8 @@
 import { Router } from 'express';
 import UserService from '../services/UserService';
 import UserController from '../controllers/UserController';
-import validEmailLogin from '../middlewares/validEmailLogin';
-import validPassword from '../middlewares/validPassword';
+// import validEmailLogin from '../middlewares/validEmailLogin';
+// import validPassword from '../middlewares/validPassword';
 import TeamsController from '../controllers/TeamsController';
 import TeamsService from '../services/TeamsService';
 import MatchesService from '../services/MatchesService';
@@ -19,7 +19,7 @@ const matchesController = new MatchesController(matchesService);
 
 const router = Router();
 
-router.post('/login', validEmailLogin, validPassword, (req, res) =>
+router.post('/login', (req, res) =>
   loginController.toConnect(req, res));
 
 router.get('/login/validate', authenticateToken, (req, res) =>

@@ -31,7 +31,7 @@ router.get('/teams/:id', (req, res) => teamsController.getTeamsById(req, res));
 
 router.get('/matches', (req, res) => matchesController.getMatches(req, res));
 
-router.post('/matches', validTeamsName, validTeamDatabase, (req, res) =>
+router.post('/matches', authenticateToken, validTeamsName, validTeamDatabase, (req, res) =>
   matchesController.newMatche(req, res));
 
 router.patch('/matches/:id/finish', (req, res) => matchesController.matcheFinish(req, res));

@@ -1,10 +1,6 @@
-export interface IMatches {
-  id: number;
-  homeTeam: number;
-  homeTeamGoals: number;
-  awayTeam: number;
-  awayTeamGoals: number;
-  inProgress: boolean;
+import Matches from '../database/models/MatchesModel';
+
+export interface IMatches extends Matches{
   teamHome?: object,
   teamAway?: object,
 }

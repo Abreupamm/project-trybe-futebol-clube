@@ -23,7 +23,7 @@ export const validTeamDatabase: RequestHandler = async (req, res, next) => {
 
   const isTeams = teams.map((team) => homeTeam === team.id || awayTeam === team.id);
 
-  if (!isTeams) {
+  if (isTeams.length === 0) {
     return res.status(404).json({ message: 'There is no team with such id!' });
   }
   next();

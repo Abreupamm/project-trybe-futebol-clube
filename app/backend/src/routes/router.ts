@@ -9,6 +9,8 @@ import MatchesService from '../services/MatchesService';
 import MatchesController from '../controllers/MatchesController';
 import { validTeamsName, validTeamDatabase } from '../middlewares/validTeams';
 import authenticateToken from '../middlewares/validToken';
+import LeaderBoardController from '../controllers/LeaderBoardController';
+import LeaderBoardServices from '../services/LeaderBoardService';
 
 const loginService = new UserService();
 const loginController = new UserController(loginService);
@@ -16,6 +18,8 @@ const teamsService = new TeamsService();
 const teamsController = new TeamsController(teamsService);
 const matchesService = new MatchesService();
 const matchesController = new MatchesController(matchesService);
+const leaderBoardService = new LeaderBoardServices();
+const leaderBoardController = new LeaderBoardController(leaderBoardService);
 
 const router = Router();
 
@@ -37,5 +41,7 @@ router.post('/matches', authenticateToken, validTeamsName, validTeamDatabase, (r
 router.patch('/matches/:id/finish', (req, res) => matchesController.matcheFinish(req, res));
 
 router.patch('/matches/:id', (req, res) => matchesController.matchesUpdate(req, res));
+
+router.get('/leaderboard/home', (req, res) => leaderBoardController.getLeaderBoard(req, res));
 
 export default router;

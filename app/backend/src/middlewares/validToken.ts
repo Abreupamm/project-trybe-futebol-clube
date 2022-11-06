@@ -16,6 +16,7 @@ const authenticateToken: RequestHandler = (req, res, next) => {
   }
 
   const user = authenticate(authorization);
+  console.log(user);
 
   if (!user) {
     return res.status(401).json({ message: 'Token must be a valid token' });

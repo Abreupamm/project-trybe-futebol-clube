@@ -22,9 +22,9 @@ const { expect } = chai;
 describe('Verifica  o endpoint /matches no back-end de maneira que ele permita o acesso com dados válidos no front-end', () => {
   describe('Quando a requisução é feita com sucesso', () => {
 
-    before(() => sinon.stub(Matches, 'findAll').resolves(matchesAll as IMatches[]));
     after(() => sinon.restore);
     it('Verifica se é possível listar todas as partidas', async () => {
+      sinon.stub(Matches, 'findAll').resolves(matchesAll as IMatches[]);
       const httpResponse = await chai.request(app).get('/matches');
       expect(httpResponse.status).to.equal(200);
       expect(httpResponse.body).to.deep.equal(matchesAll);

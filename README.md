@@ -45,9 +45,9 @@ Leia essa parte atentamente, pois aqui você encontrará informações important
 - Entre na pasta do repositório que você acabou de clonar:
   * `cd pasta-do-repositório`
 
-  2. Instale as dependências [**Caso existam**]
-  *`npm install`
-  
+ 2. Instale as dependências [**Caso existam**]
+  * `npm install`
+
   #### 🕵️ Linter
   Este projeto já veio com as dependências relacionadas ao _linter_ configuradas nos arquivos `package.json`.
   

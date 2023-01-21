@@ -4,7 +4,7 @@
   
   Fiquei responsável por desenvolver uma API (utilizando o método `TDD`) e também integrar *- através do docker-compose -* as aplicações para que elas funcionem consumindo um banco de dados.
 
-  Nesse projeto, você construir **um back-end dockerizado utilizando modelagem de dados através do Sequelize**. O desenvolvimento **respeita as regras de negócio** providas no projeto e **a API deve é capaz de ser consumida por um front-end já provido pela Trybe**.
+  Nesse projeto, construi **um back-end dockerizado utilizando modelagem de dados através do Sequelize**. O desenvolvimento **respeita as regras de negócio** providas no projeto e **a API deve é capaz de ser consumida por um front-end já provido pela Trybe**.
 
   Para adicionar uma partida foi necessário ter um _token_, portanto a pessoa deverá estar logada para fazer as alterações. Possuindo um relacionamento entre as tabelas `teams` e `matches` para fazer as atualizações das partidas.
 
